@@ -1,0 +1,179 @@
+2025-07-22 05:08:23 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f00a796d12_image.png
+2025-07-22 05:08:35 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f00b30f1e4_image.png
+2025-07-22 05:10:04 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f010c68143_image.png
+2025-07-22 05:10:36 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f012c12aca_image.png
+2025-07-22 05:11:58 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f017e0748c_image.png
+2025-07-22 05:14:11 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f02038f57c_image.png
+2025-07-22 05:16:41 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f029988697_image.png
+2025-07-22 05:18:52 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f031cd4a70_image.png
+2025-07-22 05:20:40 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f0388a6f3b_image.png
+2025-07-22 05:20:42 - QR code detected: 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 05:32:28 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f064c815e7_image.png
+2025-07-22 05:32:30 - QR code detected: 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 05:33:03 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f066f7464e_1102004107712.png
+2025-07-22 05:33:04 - QR code detected: 00020101021129370016A000000677010111021311020041077125802TH530376463046EC8
+2025-07-22 05:34:48 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f06d89652c_1102004107712.png
+2025-07-22 05:34:49 - QR code detected: 00020101021129370016A000000677010111021311020041077125802TH530376463046EC8
+2025-07-22 07:02:15 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f1b5725de6_image.png
+2025-07-22 07:02:17 - QR code detected: 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:04:08 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f1bc83dc26_image.png
+2025-07-22 07:04:10 - QRServer API Response - HTTP Code: 200, Response: [{"type":"qrcode","symbol":[{"seq":0,"data":"0045000600000101030300224520315084585I000017B97905102TH9104C595","error":null}]}]
+2025-07-22 07:04:10 - QR code detected: 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:06:43 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f1c63689cb_image.png
+2025-07-22 07:06:44 - QRServer API Response - HTTP Code: 200, Response: [{"type":"qrcode","symbol":[{"seq":0,"data":null,"error":"download error (could not establish connection)"}]}], File URL: http://localhost/Wclass/uploads/687f1c63689cb_image.png
+2025-07-22 07:06:44 - Trying alternative QR API...
+2025-07-22 07:06:44 - QRCode-Reader API Response - HTTP Code: 0, Response: 
+2025-07-22 07:06:44 - Trying third QR API...
+2025-07-22 07:06:45 - Third QR API Response - HTTP Code: 404, Response: {"message":"API doesn't exists"}
+2025-07-22 07:06:45 - No QR code found in the uploaded image. API Errors: QRCode-Reader API failed - HTTP: 0, Response: ; Third QR API failed - HTTP: 404, Response: {"message":"API doesn't exists"}
+2025-07-22 07:08:06 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f1cb6b1c3e_image.png
+2025-07-22 07:08:06 - Trying QuickChart API...
+2025-07-22 07:08:08 - QuickChart API Response - HTTP Code: 404, Response: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /qr/decode</pre>
+</body>
+</html>
+
+2025-07-22 07:08:08 - Trying QR-Code-Decoder API...
+2025-07-22 07:08:09 - QR-Code-Decoder API Response - HTTP Code: 404, Response: {"message":"API doesn't exists"}
+2025-07-22 07:08:09 - Trying ZXing API...
+2025-07-22 07:08:13 - ZXing API Response - HTTP Code: 200, Response length: 1098
+2025-07-22 07:08:13 - ZXing found QR: Raw text
+2025-07-22 07:08:13 - QR code detected: Raw text
+2025-07-22 07:10:13 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/687f1d3532a60_image.png
+2025-07-22 07:10:13 - Trying API-NINJAS QR Code Reader...
+2025-07-22 07:10:14 - API-NINJAS Response - HTTP Code: 404, Response: {"message":"Endpoint not found. Please check your spelling and try again."}
+2025-07-22 07:10:14 - Trying QR Code API with base64...
+2025-07-22 07:10:15 - QR Code API Response - HTTP Code: 404, Response: <!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>No such app</title>
+    <style media="screen">
+      html,body,iframe {
+        margin: 0;
+        padding: 0;
+      }
+      html,body {
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="//www.herokucdn.com/error-pages/no-such-app.html"></iframe>
+  </body>
+</html>
+
+2025-07-22 07:10:15 - Trying ZXing API...
+2025-07-22 07:10:17 - ZXing API Response - HTTP Code: 0
+2025-07-22 07:10:17 - No QR code found in the uploaded image. API Errors: API-NINJAS failed - HTTP: 404, Response: {"message":"Endpoint not found. Please check your spelling and try again."}; QR Code API failed - HTTP: 404, Response: <!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>No such app</title>
+    <style media="screen">
+      html,body,iframe {
+        margin: 0;
+        padding: 0;
+      }
+      html,body {
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="//www.herokucdn.com/error-pages/no-such-app.html"></iframe>
+  </body>
+</html>
+; ZXing API failed - HTTP: 0
+2025-07-22 07:17:15 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f1edb33529_image.png
+2025-07-22 07:17:15 - No QR code found in the uploaded image.
+2025-07-22 07:17:54 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f1f02c57bd_image.png
+2025-07-22 07:17:54 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:21:50 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f1fee04a87_image.png
+2025-07-22 07:21:50 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:25:13 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f20b9024ae_image.png
+2025-07-22 07:25:13 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:25:24 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f20c48d51b_image.png
+2025-07-22 07:25:24 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:27:05 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f212966d42_image.png
+2025-07-22 07:27:05 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:28:47 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f218f20dba_image.png
+2025-07-22 07:28:47 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:37:22 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2392b2e4e_image.png
+2025-07-22 07:37:22 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:43:43 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f250f285f5_screenshot_20250713_111520.png
+2025-07-22 07:43:43 - QR code detected (client-side): 0045000600000101030300224519411909796I000021B97905102TH9104CE67
+2025-07-22 07:44:39 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f254754bb9_screenshot_20250713_111520.png
+2025-07-22 07:44:39 - QR code detected (client-side): 0045000600000101030300224519411909796I000021B97905102TH9104CE67
+2025-07-22 07:45:13 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f256999c26_image.png
+2025-07-22 07:45:13 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:49:25 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2665a64ee_image.png
+2025-07-22 07:49:25 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:49:56 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2684599fa_image.png
+2025-07-22 07:49:56 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:52:09 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f27090f097_image.png
+2025-07-22 07:52:09 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:52:19 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f27130df52_image.png
+2025-07-22 07:52:19 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:53:53 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2771aa99e_image.png
+2025-07-22 07:53:53 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:56:07 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f27f7da8c5_image.png
+2025-07-22 07:56:07 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:58:03 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f286b2baec_image.png
+2025-07-22 07:58:03 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 07:59:47 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f28d33f982_image.png
+2025-07-22 07:59:47 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:05:26 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2a2687437_image.png
+2025-07-22 08:05:26 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:05:45 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2a39d0705_image.png
+2025-07-22 08:05:45 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:06:21 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2a5d8f81d_image.png
+2025-07-22 08:06:21 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:12:24 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2bc82be37_image.png
+2025-07-22 08:12:24 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:14:38 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2c4eae172_image.png
+2025-07-22 08:14:38 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:15:42 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2c8e164cf_image.png
+2025-07-22 08:15:42 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:19:05 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f2d5953a34_image.png
+2025-07-22 08:19:05 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 08:31:13 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f3031017f4_screenshot_20250713_111520.png
+2025-07-22 08:31:13 - QR code detected (client-side): 0045000600000101030300224519411909796I000021B97905102TH9104CE67
+2025-07-22 08:31:20 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687f303846e1a_image.png
+2025-07-22 08:31:20 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 19:37:33 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687fcc5dd6c27_image.png
+2025-07-22 19:37:33 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 19:40:16 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687fcd0078125_image.png
+2025-07-22 19:40:16 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 19:41:24 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687fcd444a05d_image.png
+2025-07-22 19:41:24 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 19:43:05 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687fcda94c364_image.png
+2025-07-22 19:43:05 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 19:43:17 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687fcdb51daa1_image.png
+2025-07-22 19:43:17 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-22 19:43:30 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/687fcdc20f254_image.png
+2025-07-22 19:43:30 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-23 03:01:06 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/688034523d0df_image.png
+2025-07-23 03:01:06 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595
+2025-07-23 03:01:31 - File uploaded successfully: C:\xampp\htdocs\Wclass/uploads/slips/6880346b09743_image.png
+2025-07-23 03:01:31 - QR code detected (client-side): 0045000600000101030300224520315084585I000017B97905102TH9104C595

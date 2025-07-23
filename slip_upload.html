@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปโหลดใบเสร็จ - QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .header h1 {
+            margin: 0;
+            color: #667eea;
+        }
+        
+        .upload-section {
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-section:hover {
+            border-color: #764ba2;
+            background: #f8f9ff;
+        }
+        
+        .upload-section.drag-over {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .upload-button:hover {
+            background: #764ba2;
+        }
+        
+        .camera-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        #qr-reader {
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        
+        .result-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f8f9f9;
+            display: none;
+        }
+        
+        .result-section.success {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .result-section.error {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .qr-data {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-family: monospace;
+            border: 1px solid #ccc;
+        }
+        
+        .progress-section {
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .image-preview {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin: 10px auto;
+            display: block;
+            border: 2px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧾 อัปโหลดใบเสร็จ QR Code</h1>
+            <p>เลือกไฟล์รูปภาพใบเสร็จ หรือใช้กล้องสแกน QR Code</p>
+        </div>
+
+        <!-- File Upload Section -->
+        <div class="upload-section" id="upload-section">
+            <div>
+                <h3>📁 เลือกไฟล์รูปภาพ</h3>
+                <input type="file" id="slip-file" class="file-input" accept="image/*">
+                <button class="upload-button" onclick="document.getElementById('slip-file').click()">
+                    เลือกไฟล์ใบเสร็จ
+                </button>
+                <p style="color: #666; font-size: 14px;">
+                    รองรับไฟล์: JPG, PNG, GIF | ขนาดไม่เกิน 5MB
+                </p>
+            </div>
+        </div>
+
+        <!-- Camera Scanner Section -->
+        <div class="camera-section">
+            <button id="start-camera" class="upload-button">
+                📷 เปิดกล้องสแกน QR Code
+            </button>
+            <button id="stop-camera" class="upload-button btn-warning" style="display: none;">
+                🛑 ปิดกล้อง
+            </button>
+            <div id="qr-reader" style="display: none;"></div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section" id="progress-section">
+            <h4>กำลังประมวลผล...</h4>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p id="progress-text">กำลังตรวจสอบ QR Code...</p>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-section" id="result-section">
+            <h4 id="result-title">ผลลัพธ์</h4>
+            <div id="result-content"></div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group" id="action-buttons" style="display: none;">
+            <button class="upload-button btn-success" id="save-slip">
+                💾 บันทึกใบเสร็จ
+            </button>
+            <button class="upload-button" id="try-again">
+                🔄 ลองใหม่
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let html5QrcodeScanner;
+        let currentQrText = null;
+        let currentFile = null;
+        let currentFilePath = null;
+
+        // File input handler
+        const fileInput = document.getElementById('slip-file');
+        const uploadSection = document.getElementById('upload-section');
+
+        // Drag and drop functionality
+        uploadSection.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadSection.classList.add('drag-over');
+        });
+
+        uploadSection.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadSection.classList.remove('drag-over');
+        });
+
+        uploadSection.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadSection.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        });
+
+        // Camera controls
+        document.getElementById('start-camera').addEventListener('click', startCamera);
+        document.getElementById('stop-camera').addEventListener('click', stopCamera);
+
+        // Action buttons
+        document.getElementById('save-slip').addEventListener('click', saveSlip);
+        document.getElementById('try-again').addEventListener('click', resetForm);
+
+        function handleFile(file) {
+            // Validate file
+            if (!file.type.startsWith('image/')) {
+                showResult('เฉพาะไฟล์รูปภาพเท่านั้น', false);
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                showResult('ไฟล์มีขนาดใหญ่เกินไป (สูงสุด 5MB)', false);
+                return;
+            }
+
+            currentFile = file;
+            showProgress('กำลังตรวจสอบ QR Code...');
+
+            // Show image preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'image-preview';
+                document.getElementById('result-content').innerHTML = '';
+                document.getElementById('result-content').appendChild(img);
+            };
+            reader.readAsDataURL(file);
+
+            // Scan QR code from file
+            scanQRFromFile(file);
+        }
+
+        function scanQRFromFile(file) {
+            const html5QrCode = new Html5Qrcode("qr-reader");
+            
+            html5QrCode.scanFile(file, true)
+            .then(decodedText => {
+                hideProgress();
+                currentQrText = decodedText;
+                showResult('พบ QR Code ในรูปภาพ!', true, decodedText);
+                uploadFileToServer();
+            })
+            .catch(err => {
+                hideProgress();
+                showResult('ไม่พบ QR Code ในรูปภาพ: ' + err, false);
+            });
+        }
+
+        function uploadFileToServer() {
+            if (!currentFile || !currentQrText) return;
+
+            showProgress('กำลังอัปโหลดไฟล์...');
+
+            const formData = new FormData();
+            formData.append('file', currentFile);
+            formData.append('qr_text', currentQrText);
+
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideProgress();
+                if (data.success) {
+                    currentFilePath = data.filePath;
+                    showResult('อัปโหลดสำเร็จ!', true, currentQrText, true);
+                } else {
+                    showResult('เกิดข้อผิดพลาดในการอัปโหลด: ' + data.message, false);
+                }
+            })
+            .catch(error => {
+                hideProgress();
+                showResult('เกิดข้อผิดพลาด: ' + error, false);
+            });
+        }
+
+        function startCamera() {
+            const qrReaderDiv = document.getElementById('qr-reader');
+            qrReaderDiv.style.display = 'block';
+            
+            html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader",
+                { 
+                    fps: 10, 
+                    qrbox: { width: 250, height: 250 },
+                    aspectRatio: 1.0
+                },
+                false
+            );
+
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+            
+            document.getElementById('start-camera').style.display = 'none';
+            document.getElementById('stop-camera').style.display = 'inline-block';
+        }
+
+        function stopCamera() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.clear();
+            }
+            
+            document.getElementById('qr-reader').style.display = 'none';
+            document.getElementById('start-camera').style.display = 'inline-block';
+            document.getElementById('stop-camera').style.display = 'none';
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            currentQrText = decodedText;
+            showResult('สแกน QR Code สำเร็จ!', true, decodedText);
+            stopCamera();
+            
+            // Ask user to upload a slip image
+            setTimeout(() => {
+                if (confirm('พบ QR Code แล้ว กรุณาเลือกไฟล์รูปภาพใบเสร็จเพื่ออัปโหลด')) {
+                    document.getElementById('slip-file').click();
+                }
+            }, 1000);
+        }
+
+        function onScanFailure(error) {
+            // Silent fail for continuous scanning
+        }
+
+        function showProgress(message) {
+            document.getElementById('progress-section').style.display = 'block';
+            document.getElementById('progress-text').textContent = message;
+            
+            // Animate progress bar
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = '0%';
+            setTimeout(() => progressFill.style.width = '100%', 100);
+        }
+
+        function hideProgress() {
+            document.getElementById('progress-section').style.display = 'none';
+        }
+
+        function showResult(message, isSuccess, qrData = null, showActions = false) {
+            const resultSection = document.getElementById('result-section');
+            const resultTitle = document.getElementById('result-title');
+            const resultContent = document.getElementById('result-content');
+            const actionButtons = document.getElementById('action-buttons');
+
+            resultSection.style.display = 'block';
+            resultSection.className = 'result-section ' + (isSuccess ? 'success' : 'error');
+            resultTitle.textContent = isSuccess ? '✅ สำเร็จ' : '❌ เกิดข้อผิดพลาด';
+            
+            let content = `<p><strong>${message}</strong></p>`;
+            
+            if (qrData) {
+                content += `
+                    <h5>ข้อมูล QR Code:</h5>
+                    <div class="qr-data">${qrData}</div>
+                `;
+            }
+            
+            if (currentFilePath) {
+                content += `<p><strong>ไฟล์ที่บันทึก:</strong> ${currentFilePath}</p>`;
+            }
+            
+            resultContent.innerHTML = content;
+            actionButtons.style.display = showActions ? 'flex' : 'none';
+        }
+
+        function saveSlip() {
+            if (currentQrText && currentFilePath) {
+                alert('ใบเสร็จถูกบันทึกเรียบร้อยแล้ว!\nQR Code: ' + currentQrText.substring(0, 50) + '...\nไฟล์: ' + currentFilePath);
+                resetForm();
+            }
+        }
+
+        function resetForm() {
+            currentQrText = null;
+            currentFile = null;
+            currentFilePath = null;
+            fileInput.value = '';
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('action-buttons').style.display = 'none';
+            hideProgress();
+            stopCamera();
+        }
+    </script>
+</body>
+</html>

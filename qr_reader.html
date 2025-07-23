@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Reader</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        
+        #file-input {
+            margin: 20px 0;
+            padding: 10px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        
+        #result {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f0f0f0;
+            min-height: 50px;
+        }
+        
+        .success {
+            color: green;
+            border-color: green;
+            background: #f0fff0;
+        }
+        
+        .error {
+            color: red;
+            border-color: red;
+            background: #fff0f0;
+        }
+        
+        #qr-reader {
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Reader</h1>
+        <p>Upload an image file or use your camera to scan QR codes</p>
+        
+        <!-- File Upload Section -->
+        <div id="file-input">
+            <input type="file" id="qr-input-file" accept="image/*" />
+            <p>Select an image file containing a QR code</p>
+        </div>
+        
+        <!-- Camera Scanner Section -->
+        <button id="start-camera" class="btn-primary">Start Camera Scanner</button>
+        <button id="stop-camera" class="btn-secondary" style="display: none;">Stop Camera</button>
+        
+        <div id="qr-reader" style="display: none;"></div>
+        
+        <!-- Result Display -->
+        <div id="result">
+            <p>QR code result will appear here...</p>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div id="actions" style="display: none;">
+            <button id="copy-result" class="btn-primary">Copy Result</button>
+            <button id="save-result" class="btn-secondary">Save to Server</button>
+        </div>
+    </div>
+
+    <script>
+        let html5QrcodeScanner;
+        let lastResult = null;
+
+        // File input handler
+        const fileInput = document.getElementById('qr-input-file');
+        const resultDiv = document.getElementById('result');
+        const actionsDiv = document.getElementById('actions');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const html5QrCode = new Html5Qrcode("qr-reader");
+            
+            html5QrCode.scanFile(file, true)
+            .then(decodedText => {
+                showResult(decodedText, true);
+            })
+            .catch(err => {
+                showResult(`Error: ${err}`, false);
+            });
+        });
+
+        // Camera scanner
+        document.getElementById('start-camera').addEventListener('click', function() {
+            startCameraScanner();
+        });
+
+        document.getElementById('stop-camera').addEventListener('click', function() {
+            stopCameraScanner();
+        });
+
+        function startCameraScanner() {
+            const qrReaderDiv = document.getElementById('qr-reader');
+            qrReaderDiv.style.display = 'block';
+            
+            html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader",
+                { fps: 10, qrbox: {width: 250, height: 250} },
+                false
+            );
+
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+            
+            document.getElementById('start-camera').style.display = 'none';
+            document.getElementById('stop-camera').style.display = 'inline-block';
+        }
+
+        function stopCameraScanner() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.clear();
+            }
+            
+            document.getElementById('qr-reader').style.display = 'none';
+            document.getElementById('start-camera').style.display = 'inline-block';
+            document.getElementById('stop-camera').style.display = 'none';
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            showResult(decodedText, true);
+            stopCameraScanner(); // Auto stop after successful scan
+        }
+
+        function onScanFailure(error) {
+            // Handle scan failure - usually just ignore
+        }
+
+        function showResult(text, isSuccess) {
+            lastResult = isSuccess ? text : null;
+            
+            resultDiv.innerHTML = `<strong>${isSuccess ? 'Success:' : 'Error:'}</strong><br>${text}`;
+            resultDiv.className = isSuccess ? 'success' : 'error';
+            
+            if (isSuccess) {
+                actionsDiv.style.display = 'block';
+            } else {
+                actionsDiv.style.display = 'none';
+            }
+        }
+
+        // Copy result to clipboard
+        document.getElementById('copy-result').addEventListener('click', function() {
+            if (lastResult) {
+                navigator.clipboard.writeText(lastResult).then(function() {
+                    alert('Result copied to clipboard!');
+                }).catch(function() {
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = lastResult;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('Result copied to clipboard!');
+                });
+            }
+        });
+
+        // Save result to server
+        document.getElementById('save-result').addEventListener('click', function() {
+            if (lastResult) {
+                // Create a temporary image file with the QR data
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 200;
+                canvas.height = 50;
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'black';
+                ctx.font = '12px Arial';
+                ctx.fillText('QR Data: ' + lastResult.substring(0, 30), 10, 25);
+                
+                canvas.toBlob(function(blob) {
+                    const formData = new FormData();
+                    formData.append('file', blob, 'qr_data.png');
+                    formData.append('qr_text', lastResult);
+                    
+                    fetch('upload_qr_result.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('QR data saved successfully!');
+                        } else {
+                            alert('Error saving QR data: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        alert('Error: ' + error);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
